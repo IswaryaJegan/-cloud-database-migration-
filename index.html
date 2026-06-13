@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloud Database Migration Simulator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🗄️ Cloud Database Migration Simulator</h1>
+      <p>Plan, simulate, and monitor migration from on‑prem/VM to cloud DB</p>
+    </header>
+
+    <div class="migration-panel">
+      <div class="config-section">
+        <h3>📌 Source & Target Configuration</h3>
+        <div class="config-row">
+          <div class="config-card">
+            <label>Source Database</label>
+            <select id="sourceDb">
+              <option value="mysql">MySQL 8.0</option>
+              <option value="postgres">PostgreSQL 14</option>
+            </select>
+            <div class="db-details">
+              <span>📦 Tables: 12</span>
+              <span>📊 Total rows: ~245,000</span>
+            </div>
+          </div>
+          <div class="arrow">➡️</div>
+          <div class="config-card">
+            <label>Target Cloud DB</label>
+            <select id="targetDb">
+              <option value="aws">AWS RDS (MySQL compatible)</option>
+              <option value="gcp">GCP Cloud SQL (PostgreSQL)</option>
+              <option value="azure">Azure SQL Database</option>
+            </select>
+            <div class="db-details">
+              <span>☁️ Region: us-east-1</span>
+              <span>⚡ Provisioned IOPS</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="migration-options">
+          <label>Migration Type:</label>
+          <select id="migrationType">
+            <option value="full">Full migration (one-time)</option>
+            <option value="incremental">Incremental + CDC (demo)</option>
+          </select>
+          <label>Simulation Speed:</label>
+          <input type="range" id="speedSlider" min="1" max="5" value="3">
+          <span id="speedLabel">Normal (3s/phase)</span>
+        </div>
+      </div>
+
+      <div class="action-section">
+        <button id="startMigrationBtn" class="primary">🚀 Start Migration Simulation</button>
+        <button id="resetBtn" class="secondary">⟳ Reset</button>
+      </div>
+
+      <div class="progress-section">
+        <h3>Migration Progress</h3>
+        <div class="progress-bar-container">
+          <div id="progressFill" class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div id="progressStatus" class="progress-status">Ready</div>
+      </div>
+
+      <div class="metrics-section">
+        <div class="metric-card">
+          <div class="metric-label">Schema Exported</div>
+          <div id="schemaStatus" class="metric-value">⏳ Pending</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Data Transferred</div>
+          <div id="dataStatus" class="metric-value">0 / 245k rows</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Validation</div>
+          <div id="validateStatus" class="metric-value">⏳ Not started</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Total Time</div>
+          <div id="timeElapsed" class="metric-value">0s</div>
+        </div>
+      </div>
+
+      <div class="logs-section">
+        <h3>📝 Migration Logs</h3>
+        <div id="logContainer" class="log-container">
+          <div class="log-entry info">⚙️ Simulator ready. Configure source/target and click Start.</div>
+        </div>
+        <button id="clearLogsBtn" class="small-btn">Clear Logs</button>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
